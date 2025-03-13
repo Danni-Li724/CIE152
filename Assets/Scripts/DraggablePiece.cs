@@ -8,11 +8,10 @@ public class DraggablePiece : MonoBehaviour
 
     private Camera mainCamera;
     private LightObject lightObject;
-
     private void Start()
     {
         pieceCollider = GetComponent<PolygonCollider2D>();
-        lightObject = GetComponent<LightObject>(); // Get the LightObject if present
+        lightObject = GetComponent<LightObject>(); 
 
         if (pieceCollider == null)
         {
@@ -43,8 +42,18 @@ public class DraggablePiece : MonoBehaviour
         if (isBeingDragged)
         {
             DragPiece(mouseWorldPosition);
+            if (PlayerInputManager.Instance != null && PlayerInputManager.Instance.RotateTriggered())
+            {
+                RotatePiece();
+                Debug.Log("r pressed");
+            }
         }
     }
+    
+     private void RotatePiece()
+        {
+            transform.Rotate(0, 0, 45f); 
+        }
 
     private bool IsMouseOverPiece(Vector2 mouseWorldPosition)
     {
@@ -61,7 +70,7 @@ public class DraggablePiece : MonoBehaviour
     {
         if (lightObject != null)
         {
-            LightUIManager.SetSelectedLight(lightObject); // ✅ Notify UI to update to this light
+            LightUIManager.SetSelectedLight(lightObject); 
         }
     }
     // private void TrySnap()
