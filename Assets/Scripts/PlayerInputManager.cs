@@ -5,9 +5,8 @@ public class PlayerInputManager : MonoBehaviour
 {
     public static PlayerInputManager Instance { get; private set; }
 
-    private PlayerInput playerInput;
+    private InputSystem_Actions playerInput;
     private InputAction rotateAction;
-    private bool rotatePressed = false;
 
     private void Awake()
     {
@@ -19,8 +18,13 @@ public class PlayerInputManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
         
-        playerInput = new PlayerInput();
+        // Initialize the playerInput object from the generated InputSystem_Actions class
+        playerInput = new InputSystem_Actions();
+
+        // Get the Rotate action from the Gameplay map
         rotateAction = playerInput.Gameplay.Rotate;
+
+        // Enable the action
         rotateAction.Enable();
     }
     
@@ -29,12 +33,8 @@ public class PlayerInputManager : MonoBehaviour
         rotateAction.Disable();
     }
 
-    public bool RotateTriggered()
+    public bool IsRotating()
     {
-        if (rotatePressed)
-        {
-            return rotateAction.WasPressedThisFrame();
-        }
-        return false;
+        return rotateAction.triggered;  
     }
 }

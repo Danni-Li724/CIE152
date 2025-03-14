@@ -42,7 +42,7 @@ public class DraggablePiece : MonoBehaviour
         if (isBeingDragged)
         {
             DragPiece(mouseWorldPosition);
-            if (PlayerInputManager.Instance != null && PlayerInputManager.Instance.RotateTriggered())
+            if (PlayerInputManager.Instance != null && PlayerInputManager.Instance.IsRotating())
             {
                 RotatePiece();
                 Debug.Log("r pressed");
