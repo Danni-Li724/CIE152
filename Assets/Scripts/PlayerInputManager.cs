@@ -31,10 +31,8 @@ public class PlayerInputManager : MonoBehaviour
 
     public bool RotateTriggered()
     {
-        if (rotatePressed)
-        {
+       
             return rotateAction.WasPressedThisFrame();
-        }
-        return false;
+      
     }
 }

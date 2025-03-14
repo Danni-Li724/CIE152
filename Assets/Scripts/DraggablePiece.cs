@@ -45,7 +45,7 @@ public class DraggablePiece : MonoBehaviour
             if (PlayerInputManager.Instance != null && PlayerInputManager.Instance.RotateTriggered())
             {
                 RotatePiece();
-                Debug.Log("r pressed");
+                Debug.Log("R pressed");
             }
         }
     }
