@@ -11,7 +11,7 @@ public class LightObject : MonoBehaviour
     public float flashFrequency = 1f;
     public Color lightColor = Color.white;
     public float lightRadius = 5f;
-    public float lightIntensity = 1f;
+    public float lightIntensity;
 
     private float flashTimer = 0f;
 

@@ -1,28 +1,21 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class DraggablePiece : MonoBehaviour
 {
     private PolygonCollider2D pieceCollider;
     public bool isBeingDragged = false;
-
     private Camera mainCamera;
+    private PieceUIManager pieceUIManager;
     private LightObject lightObject;
+
     private void Start()
     {
         pieceCollider = GetComponent<PolygonCollider2D>();
-        lightObject = GetComponent<LightObject>(); 
-
-        if (pieceCollider == null)
-        {
-            Debug.LogError("Missing collider");
-        }
-
         mainCamera = Camera.main;
-        if (mainCamera == null)
-        {
-            Debug.LogError("Main camera not found");
-        }
+        pieceUIManager = FindObjectOfType<PieceUIManager>();
+        lightObject = GetComponent<LightObject>(); 
     }
 
     private void Update()
@@ -32,7 +25,12 @@ public class DraggablePiece : MonoBehaviour
         if (Mouse.current.leftButton.wasPressedThisFrame && IsMouseOverPiece(mouseWorldPosition))
         {
             isBeingDragged = true;
-            SetAsSelectedLight(); 
+            if (pieceUIManager != null)
+            {
+                pieceUIManager.SetSelectedPiece(this); // Update UI when clicked
+            }
+
+            SetAsSelectedLight();
         }
         else if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
@@ -42,18 +40,16 @@ public class DraggablePiece : MonoBehaviour
         if (isBeingDragged)
         {
             DragPiece(mouseWorldPosition);
-            if (PlayerInputManager.Instance != null && PlayerInputManager.Instance.RotateTriggered())
-            {
-                RotatePiece();
-                Debug.Log("r pressed");
-            }
         }
     }
     
-     private void RotatePiece()
+    private void SetAsSelectedLight()
+    {
+        if (lightObject != null)
         {
-            transform.Rotate(0, 0, 45f); 
+            LightUIManager.SetSelectedLight(lightObject); 
         }
+    }
 
     private bool IsMouseOverPiece(Vector2 mouseWorldPosition)
     {
@@ -65,13 +61,6 @@ public class DraggablePiece : MonoBehaviour
     {
         transform.position = new Vector3(mouseWorldPosition.x, mouseWorldPosition.y, 0);
     }
-
-    private void SetAsSelectedLight()
-    {
-        if (lightObject != null)
-        {
-            LightUIManager.SetSelectedLight(lightObject); 
-        }
     }
     // private void TrySnap()
     // {
@@ -87,4 +76,3 @@ public class DraggablePiece : MonoBehaviour
     //         }
     //     }
     // }
-}
