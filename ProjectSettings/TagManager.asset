@@ -49,6 +49,9 @@ TagManager:
   - name: Stage
     uniqueID: 53680679
     locked: 0
+  - name: Walls
+    uniqueID: 1033136869
+    locked: 0
   - name: Bar
     uniqueID: 3196669169
     locked: 0

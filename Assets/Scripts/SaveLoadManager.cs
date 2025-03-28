@@ -15,7 +15,7 @@ public class SaveLoadManager : MonoBehaviour
 
     private void Start()
     {
-        saveDirectory = Path.Combine(Application.persistentDataPath, "SavedScenes");
+        saveDirectory = Path.Combine(Application.persistentDataPath, "SavedPlans");
 
         if (!Directory.Exists(saveDirectory))
             Directory.CreateDirectory(saveDirectory);
@@ -26,7 +26,7 @@ public class SaveLoadManager : MonoBehaviour
     public void SaveLayout()
     {
         int saveIndex = GetNextSaveIndex(); // Get the next available slot (Scene 1, 2, etc.)
-        string savePath = Path.Combine(saveDirectory, $"Scene{saveIndex}.json");
+        string savePath = Path.Combine(saveDirectory, $"Plan{saveIndex}.json");
 
         List<ObjectData> dataList = new List<ObjectData>();
         foreach (var obj in objectsToSave)
@@ -72,7 +72,7 @@ public class SaveLoadManager : MonoBehaviour
 
     private int GetNextSaveIndex()
     {
-        string[] existingFiles = Directory.GetFiles(saveDirectory, "Scene*.json");
+        string[] existingFiles = Directory.GetFiles(saveDirectory, "Plan*.json");
         return existingFiles.Length + 1;
     }
 
@@ -83,7 +83,7 @@ public class SaveLoadManager : MonoBehaviour
             Destroy(child.gameObject); // Clear old buttons
         }
 
-        string[] existingFiles = Directory.GetFiles(saveDirectory, "Scene*.json");
+        string[] existingFiles = Directory.GetFiles(saveDirectory, "Plan*.json");
         foreach (string file in existingFiles)
         {
             string sceneName = Path.GetFileNameWithoutExtension(file);

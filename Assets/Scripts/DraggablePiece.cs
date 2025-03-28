@@ -40,6 +40,11 @@ public class DraggablePiece : MonoBehaviour
         if (isBeingDragged)
         {
             DragPiece(mouseWorldPosition);
+            if (PlayerInputManager.Instance != null && PlayerInputManager.Instance.RotateTriggered())
+            {
+                RotatePiece();
+                Debug.Log("r pressed");
+            }
         }
     }
     
@@ -49,6 +54,11 @@ public class DraggablePiece : MonoBehaviour
         {
             LightUIManager.SetSelectedLight(lightObject); 
         }
+    }
+    
+    private void RotatePiece()
+    {
+        transform.Rotate(0, 0, 45f); 
     }
 
     private bool IsMouseOverPiece(Vector2 mouseWorldPosition)
