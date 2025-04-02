@@ -25,7 +25,7 @@ public class SaveLoadManager : MonoBehaviour
 
     public void SaveLayout()
     {
-        int saveIndex = GetNextSaveIndex(); // Get the next available slot (Scene 1, 2, etc.)
+        int saveIndex = GetNextSaveIndex(); // Get the next available slot
         string savePath = Path.Combine(saveDirectory, $"Plan{saveIndex}.json");
 
         List<ObjectData> dataList = new List<ObjectData>();
